@@ -9,10 +9,12 @@ var gulp         = require('gulp'),
     imagemin     = require('gulp-imagemin'),
     pngquant     = require('imagemin-pngquant'),
     cache        = require('gulp-cache'),
-    autoprefixer = require('gulp-autoprefixer');
+    autoprefixer = require('gulp-autoprefixer'),
+    sassGlob     = require('gulp-sass-glob');
 
 gulp.task('sass', function () {
     return gulp.src('app/sass/**/*.scss') //берем источник
+        .pipe(sassGlob())
         .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError)) //преобразуем в css
         .pipe(autoprefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true })) //добавляем префиксы
         .pipe(cssnano())
